@@ -483,12 +483,28 @@
 </footer>
 
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
-    btn.textContent = 'Sent! We\'ll be in touch soon.';
-    btn.style.background = '#1a8a4a';
-    btn.disabled = true;
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.submit-btn');
+  const data = new FormData(form);
+  fetch('https://formspree.io/f/mredgaen', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(res => {
+    if (res.ok) {
+      btn.textContent = 'Sent! We\'ll be in touch soon.';
+      btn.style.background = '#1a8a4a';
+      btn.disabled = true;
+      form.reset();
+    } else {
+      btn.textContent = 'Error - please try again.';
+    }
+  }).catch(() => {
+    btn.textContent = 'Error - please try again.';
+  });
+}
   }
 </script>
 
