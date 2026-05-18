@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rolf Bros. Window Washing | Salt Lake City, UT</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1a5fa8;
+      --blue-dark: #134a85;
+      --blue-light: #e8f2ff;
+      --blue-mid: #2e7dd4;
+      --white: #ffffff;
+      --gray: #f5f7fa;
+      --text: #1c2b3a;
+      --text-light: #5a6e82;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(26,95,168,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #dde8f5;
+      padding: 0 24px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex; flex-direction: column; line-height: 1;
+    }
+    .nav-logo .brand { font-size: 1.1rem; font-weight: 800; color: var(--blue); letter-spacing: 0.04em; }
+    .nav-logo .sub   { font-size: 0.6rem; font-weight: 600; color: var(--blue-mid); letter-spacing: 0.18em; text-transform: uppercase; }
+
+    .nav-cta {
+      background: var(--blue);
+      color: var(--white);
+      border: none; cursor: pointer;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 0.875rem; font-weight: 600;
+      text-decoration: none;
+      transition: background 0.18s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, #4a9fe8 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-inner { position: relative; max-width: 720px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: var(--white);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero-logo {
+      margin-bottom: 28px;
+    }
+    .hero-logo .big   { display: block; font-size: clamp(2.8rem, 8vw, 5rem); font-weight: 900; color: var(--white); letter-spacing: 0.06em; line-height: 1; }
+    .hero-logo .small { display: block; font-size: clamp(0.9rem, 3vw, 1.4rem); font-weight: 600; color: rgba(255,255,255,0.85); letter-spacing: 0.35em; text-transform: uppercase; margin-top: 4px; }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--white);
+      color: var(--blue);
+      font-weight: 700; font-size: 1rem;
+      padding: 16px 36px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,0.22); }
+
+    .hero-phone {
+      display: block; margin-top: 20px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.95rem;
+    }
+    .hero-phone a { color: var(--white); text-decoration: none; font-weight: 600; }
+
+    /* SECTION BASE */
+    section { padding: 80px 24px; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue-mid); margin-bottom: 10px;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800; color: var(--text);
+      margin-bottom: 16px; line-height: 1.2;
+    }
+    .section-intro { color: var(--text-light); font-size: 1.05rem; line-height: 1.6; max-width: 540px; }
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    /* SERVICES */
+    #services { background: var(--gray); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--blue);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 36px rgba(26,95,168,0.14); }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      background: var(--blue-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 26px; height: 26px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .service-card p  { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; }
+
+    /* WHY CHOOSE US */
+    #why { background: var(--white); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .why-card {
+      text-align: center;
+      padding: 32px 20px;
+      border-radius: var(--radius);
+      border: 1.5px solid #dde8f5;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .why-card:hover { border-color: var(--blue-mid); box-shadow: var(--shadow); }
+
+    .why-icon {
+      width: 60px; height: 60px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+    }
+    .why-icon svg { width: 28px; height: 28px; stroke: var(--white); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .why-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .why-card p  { color: var(--text-light); font-size: 0.875rem; line-height: 1.55; }
+
+    /* CONTACT */
+    #contact { background: var(--blue-light); }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      margin-top: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .contact-info h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .contact-item-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--blue);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-item-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .contact-item-text { font-size: 0.9rem; color: var(--text-light); line-height: 1.4; }
+    .contact-item-text strong { display: block; color: var(--text); font-size: 0.95rem; }
+    .contact-item-text a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .contact-item-text a:hover { text-decoration: underline; }
+
+    /* FORM */
+    form {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: 0.02em; }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #c8d9ee;
+      border-radius: 7px;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: #fafdff;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      outline: none;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(46,125,212,0.12);
+    }
+    textarea { resize: vertical; min-height: 110px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--blue);
+      color: var(--white);
+      border: none; cursor: pointer;
+      padding: 14px;
+      border-radius: 7px;
+      font-size: 1rem; font-weight: 700;
+      margin-top: 6px;
+      transition: background 0.18s, transform 0.14s;
+    }
+    .submit-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 0.875rem;
+    }
+    footer .footer-logo { font-size: 1rem; font-weight: 800; color: var(--white); letter-spacing: 0.08em; margin-bottom: 6px; }
+    footer .footer-sub  { font-size: 0.65rem; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    footer .divider { margin: 0 8px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="brand">ROLF BROS.</span>
+    <span class="sub">Window Washing</span>
+  </div>
+  <a href="#contact" class="nav-cta">Get a Free Quote</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">Salt Lake City &amp; Nearby</span>
+    <div class="hero-logo">
+      <span class="big">ROLF BROS.</span>
+      <span class="small">Window Washing</span>
+    </div>
+    <p class="hero-tagline">Crystal-clear windows for homes &amp; condos across<br>Salt Lake City and the surrounding area.</p>
+    <a href="#contact" class="hero-cta">Get a Free Quote</a>
+    <span class="hero-phone">Or call us directly: <a href="tel:4352149807">(435) 214-9807</a></span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-label">What We Do</p>
+    <h2>Our Services</h2>
+    <p class="section-intro">From single-family homes to multi-unit condos, we handle every pane with care.</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Residential Homes</h3>
+        <p>Streak-free cleaning for all window styles — single pane, double pane, skylights, and more. Inside and out.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        </div>
+        <h3>Condos &amp; Multi-Unit</h3>
+        <p>Efficient service for condominiums and multi-unit properties. We work around your schedule with minimal disruption.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Exterior &amp; Interior</h3>
+        <p>Full-service cleaning inside and outside. We bring all the equipment — you just enjoy the view.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="container">
+    <p class="section-label">Why Rolf Bros.</p>
+    <h2>Why Choose Us</h2>
+    <p class="section-intro">We're a local team you can count on — not a faceless franchise.</p>
+
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Locally Owned</h3>
+        <p>Based right here in Salt Lake City. We know the area, the homes, and the community.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Professional</h3>
+        <p>Trained, equipped, and experienced. We show up on time and leave your windows spotless.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Fully Insured</h3>
+        <p>You're covered. We carry full insurance so you have total peace of mind.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Reliable &amp; On Time</h3>
+        <p>We respect your time. If we say we'll be there, we'll be there — no runaround.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Get In Touch</p>
+    <h2>Get a Free Quote</h2>
+    <p class="section-intro">Fill out the form and we'll get back to you quickly with a no-obligation quote.</p>
+
+    <div class="contact-layout">
+
+      <div class="contact-info">
+        <h3>Contact Details</h3>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Phone</strong>
+            <a href="tel:4352149807">(435) 214-9807</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Instagram</strong>
+            <a href="https://instagram.com/rolf_window_washers" target="_blank" rel="noopener">@rolf_window_washers</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Service Area</strong>
+            Salt Lake City &amp; surrounding areas
+          </div>
+        </div>
+      </div>
+
+      <form id="quote-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(801) 555-0100" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Property Address</label>
+          <input type="text" id="address" name="address" placeholder="123 Main St, Salt Lake City, UT" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message (optional)</label>
+          <textarea id="message" name="message" placeholder="Tell us about your property or any special requests…"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send My Free Quote Request</button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ROLF BROS.</div>
+  <div class="footer-sub">Window Washing</div>
+  <p>
+    <a href="tel:4352149807">(435) 214-9807</a>
+    <span class="divider">·</span>
+    <a href="https://instagram.com/rolf_window_washers" target="_blank" rel="noopener">@rolf_window_washers</a>
+    <span class="divider">·</span>
+    Salt Lake City, UT
+  </p>
+  <p style="margin-top:12px; font-size:0.78rem; opacity:0.45;">&copy; 2025 Rolf Bros. Window Washing. All rights reserved.</p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = 'Sent! We\'ll be in touch soon.';
+    btn.style.background = '#1a8a4a';
+    btn.disabled = true;
+  }
+</script>
+
+</body>
+</html>
